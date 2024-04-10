@@ -123,7 +123,7 @@ class Birthday:
 
 class Phone(UserList):
 
-    def normalizePone(self, phone):  # Нормализатор номера телефона
+    def normalizePone(self, phone):  # Нормалізатор номера телефона
         if len(phone) == 12:
             new_phone = "+" + phone
             return new_phone
@@ -139,10 +139,10 @@ class Phone(UserList):
         else:
             return f"{Fore.RED}Номер {Fore.GREEN}{self.normalizePone(phone)} {Fore.RED}вже існує.{Fore.RESET}"
 
-    def getPhone(self):  # возвращает №-ра телефонов списком -> List
+    def getPhone(self):  # повертає №-ра телефонів списком -> List
         return self.data
 
-    def getPhones(self):  # возвращает №-ра телефонов одной строкой -> Str
+    def getPhones(self):  # повертає №-ра телефонів однією стрічкою -> Str
         return f"{'; '.join(self)}"
 
     def delPhone(self, phone):
@@ -191,7 +191,6 @@ class Record(AbastractRecord):
         return self.phone.setPhone(phone)
 
     def changePhone(self, phone1, phone2):
-        # if self.phone.normalizePone(phone1) in self.getPhone(): # 2-й варіант перевірки наявності телефону
         if self.phone.findPhone(phone1):
             return self.phone.changePhone(phone1, phone2)
         else:
@@ -219,9 +218,9 @@ class Record(AbastractRecord):
 
     def findBirthday(self, birthday):
         if self.birthday.findBirthday(birthday):
-            return f"{Fore.YELLOW}День нарподження {Fore.GREEN}{birthday} {Fore.YELLOW}належить користувачу {Fore.GREEN}{self.getName()}{Fore.RESET}"
+            return f"{Fore.YELLOW}День народження {Fore.GREEN}{birthday} {Fore.YELLOW}належить користувачу {Fore.GREEN}{self.getName()}{Fore.RESET}"
         else:
-            return f"{Fore.RED}День нарподження {Fore.GREEN}{birthday} {Fore.RED}не знайдено{Fore.RESET}"
+            return f"{Fore.RED}День народження {Fore.GREEN}{birthday} {Fore.RED}не знайдено{Fore.RESET}"
 
     def showRecord(self):
         if len(str(self.birthday.getBirthday())) == 19:
@@ -291,9 +290,8 @@ class AddressBook(UserDict):
             if self.data[rec].phone.findPhone(phone):
                 return self.data[rec].findPhone(phone)
         return f"Номер {phone} відсутній"
-        # print(self.data[rec].phone.findPhone(phone))
 
-    def findBirthday(self, birthday):  # ++ добавити перевірку формату
+    def findBirthday(self, birthday):
         for rec in self.data:
             if len(str(self.data[rec].getBirthday())) == 19:
                 if self.data[rec].birthday.findBirthday(birthday):
@@ -347,7 +345,6 @@ def getUpcommingBirthdays(users):  # ++
                 )
     if birthday_list:
         print(f"{Fore.YELLOW}Список найближчих іменинників:{Fore.RESET}")
-        # lambda x: x in birthday_list, (map((print(birthday_list[x]['name'], ' - ', birthday_list[x]['birthday'])), birthday_list))
         for i in birthday_list:
             print(f"{Fore.GREEN}{i['name']}{Fore.RESET} - {i['birthday']}")
         return birthday_list
@@ -368,8 +365,8 @@ def delrec(name, book):
     return book
 
 
-# ------- додає нову Запис до Адресної книги в залежності від кількості аргументів (імʼя, тел., д/p)
-def createRecord(args, book):  # додати перевірку формату тел и др
+# ------- додає нову Запис до Адресної книги в залежності від кількості аргументів (імʼя, тел., д/н)
+def createRecord(args, book):  # додати перевірку формату тел и д.н.
     if len(args) == 1:
         args[0] = Record(args[0])
         return addToBook(args[0], book)
